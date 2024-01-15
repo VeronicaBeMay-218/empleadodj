@@ -1,0 +1,79 @@
+{% extends 'base.html'%}<!--para poder acceder a las partes del form de base-->
+
+{% block cuerpo %}<!--header desde el base-->
+    {% include 'includes/header.html' %}  
+    
+      <div class="grid-container">
+        <div class="grid-x">
+          <h1 class="cell">Lista Empleados</h1><!--cell hijos del grid-->
+            <!--grid-margin-x que tenga margenes entre sus hijos-->
+          <form class="cell grid-x grid-margin-x" method="GET">{%csrf_token%}
+            <div class="cell large-7">
+                <input type="text" id="kword" name="kword" placeholder="Buscar empleado">
+            </div>
+            <div class="cell large-2"><!--large ocupe lapantalla -->
+                  <!--tipo sibmit para que funcione el get-->
+              <button type="submit" class="success button">Buscar</button>
+            </div>
+          </form>
+
+          <div class="cell">
+            <table>
+              <thead>
+                <tr>
+                <th width="200">ID</th>
+                <th>NOMBRES</th>
+                <th width="150">APELLIDOS</th>
+                <th width="150">DEPARTAMENTO</th>
+                <th width="150">ACCIÓN</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for e in empleados%}
+                <tr>
+                <td>{{ e.id}}</td>
+                <td>{{ e.first_name}}</td>
+                <td>{{ e.last_name}}</td>
+                <td>{{ e.departamento}}</td>
+                <td><a class="button warning" href="{% url 'persona_app:empleado_detail' e.id %}">Ver</a></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          
+          <d iv class="cell">
+            {% if is_paginated%}<!--si existe pagination si sale paginate_by=-->
+            <nav aria-label="Pagination">
+              <ul class="pagination">
+                {% if page_obj.has_previous%}<!--si objeto de paginacion tiene pagina atras me muestra el previous(atras)-->
+                <li class="pagination-previous">
+                  <a href="?page={{page_obj.previous_page_number}}">Atras</a>   
+                </li>
+                {% endif %}
+                
+                {% for pagina in paginator.page_range %}
+                
+                
+                {% ifequal pagina page_obj.number  %}
+                <li class="current"><span class="show-for-sr">You're on page</span> {{ pagina }}</li>
+                {% else %}
+                  
+                <li><a href="?page={{pagina}}">{{pagina}}</a></li>
+                {% endifequal %}
+                {% endfor %}
+                
+                {% if page_obj.has_next%}
+                <li class="pagination-next">
+                  <a href="?page={{page_obj.next_page_number}}">Siguiente</a>
+                </li>
+                {% endif %}
+              </ul>
+            </nav>
+            {% endif%}
+          </div>
+        </div>
+      </div>
+    
+{% endblock cuerpo %}
+

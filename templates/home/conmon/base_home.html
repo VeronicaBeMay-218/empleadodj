@@ -1,0 +1,23 @@
+{%load static%} <!--para queagarre el css-->
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}"><!--agregaos el framewokrk-->
+    
+    <title>
+        {% block titulo %}
+    
+        {% endblock titulo %}
+    </title>
+   
+</head>
+<body>
+
+    {% block cuerpo %}
+    
+    {% endblock cuerpo %}
+    
+</body>
+</html>

@@ -1,0 +1,72 @@
+
+{% extends 'base.html'%}
+{%load static%}
+{% block titulo %}
+    Editar Empleado
+{% endblock titulo %}
+
+
+{% block cuerpo %}
+    {% include 'includes/header.html' %}
+    
+    <div class="grid-container"><!--grid container para q tenga las margenes y pueda centar-->
+        <div class="grid-x"><!--para usar las columnas-->
+            <h1 class="cell">Modificar datos del empleado</h1>
+            <div class="cell">
+                <form class="grid-x grid-margin-x" method="POST">{% csrf_token %}<!--se agrega grid-->
+                
+                    <div class="cell large-6"><!--es hijo de grid por eso al nform hay que pon erle grid-->
+                        <label>Nombres:
+                            {{form.first_name}}
+                        </label>
+                    </div>
+                    <div class="cell large-6"><!--es hijo de grid por eso al nform hay que pon erle grid-->
+                        <label>Apellidos:
+                            {{form.last_name}}
+                        </label>
+                    </div>
+                    <div class="cell large-6"><!--es hijo de grid por eso al nform hay que pon erle grid-->
+                        <label>Trabajo:
+                            {{form.job}}
+                        </label>
+                    </div>
+                    <div class="cell large-6"><!--es hijo de grid por eso al nform hay que pon erle grid-->
+                        <label>Departamento:
+                            {{form.departamento}}
+                        </label>
+                    </div>
+                    <div class="cell large-6"><!--es hijo de grid por eso al nform hay que pon erle grid-->
+                        <label>Habilidades:
+                            {{form.habilidades}}
+                        </label>
+                    </div>
+                    <div class="cell large-4">
+                    
+                        <label>Foto:</label>
+                       
+                    
+                    <!--es hijo de grid por eso al nform hay que pon erle grid-->
+                        {% if empleado.avatar %}
+                        <img src="{{empleado.avatar.url}}"><!--si tiene imagen sale si no sale otra que sele asigne-->
+                        {% else %}
+                        <img src="{% static 'img/img1.jpg' %}">
+            
+                        {% endif %}
+                    </div>
+                    <div class="cell"><!--es hijo de grid por eso al nform hay que pon erle grid-->
+                        <!--eol boton lo sacamos de la doc foundation controls button save-->
+                        <button type="submit" class="success button">Guardar</button>
+                    </div>
+                    
+                   <!--{{form.as_p}}--> 
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock cuerpo %}
+    
+
+
+
+

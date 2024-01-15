@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}
+    {{object.full_name}}
+{% endblock titulo %}
+
+
+{% block cuerpo %}
+
+{% include 'includes/header.html' %}
+
+<div class="grid-container">
+    <div class="grid-x grid-margin-x align-center"><!--lo0 centramos-->
+        
+        <div class="card large-4 card" style="width: 300px; margin-top: 10px;"> <!--large para quese ajuste a la pantalla-->
+            <div class="card-divider">
+              {{empleado.get_job_display}}<!--antes recuperaba el numero por el choices-->
+            </div>
+            
+            {% if empleado.avatar %}
+            <img src="{{empleado.avatar.url}}"><!--si tiene imagen sale si no sale otra que sele asigne-->
+            {% else %}
+                <img src="{% static 'img/img1.jpg' %}">
+            
+            {% endif %}
+           
+            
+            <div class="card-section">
+              <h4>{{empleado.full_name}}</h4>
+              <p>{{empleado.first_name}}</p>
+              <p>{{empleado.departamento.shor_name}}</p><!--para que no0 salga el dep compkleto poibemos que queremos solo el shor_name-->
+              <p><span class="label">Habilidades</span></p>
+              <ul class="vertical menu">
+              {% for h in empleado.habilidades.all %}
+                <li>{{h.habilidad}}</li>
+                
+              {% endfor %}
+              </ul>
+             </div>
+          </div>
+    
+    </div>
+
+</div>
+    
+{% endblock cuerpo %}
+    
+    
+
+
+
+
+<!--  <h1>Detalles de un empleado {{titulo}}</h1>
+
+{{empleado}}
+
+<h3>Todos los datos:</h3>
+
+<p>{{empleado.first_name}}<p>
+<p>{{empleado.last_name}}<p>
+<p>{{empleado.departamento}}<p>
+<p>{{empleado.habilidades}}<p>   -->
+
+
+
+
+
